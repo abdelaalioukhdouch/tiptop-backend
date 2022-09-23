@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: backend-image
+  name: backend-image
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: backend-image
+  template:
+    metadata:
+      labels:
+        run: backend-image
+    spec:
+      containers:
+      - image: gcr.io/jovial-branch-357613/backend-image:latest #Replace [PROJECT-ID] accordingly
+        name: backend-image
+        ports:
+        - containerPort: 8080
