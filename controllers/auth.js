@@ -1,3 +1,4 @@
+//module.exports = (a,b) => a + b
 const User = require("../models/User");
 
 const {
