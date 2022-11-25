@@ -10,11 +10,10 @@ const usersRoutes = require("./routes/api/user/user");
 const scriptRoutes = require("./routes/api/script/script");
 const ticketRoutes = require("./routes/api/ticket/ticket");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 443;
 
 const app = express();
 
-const server = app.listen(port);
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -32,7 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors());
+// app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
@@ -47,3 +46,4 @@ app.get("/test", (req, res) => {
 
 connectDB();
 console.log(`Connected to PORT ${port} `);
+const server = app.listen(port);
