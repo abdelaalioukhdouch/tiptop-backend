@@ -2,6 +2,29 @@
 
 Welcome to our project's documentation. This README provides information on how to access various resources and tools related to our project.
 
+# Application Login
+
+You can access the application using the following login credentials:
+
+## Admin
+
+- **Login:** admin@gmail.com
+- **Password:** admin
+
+## User
+
+- **Login:** user@gmail.com
+- **Password:** user
+
+## Access the Application
+
+To access the application, simply click on the following link:
+
+[Application Login](https://tiptipfront.azurewebsites.net/)
+
+Enjoy using the application!
+
+
 ## Portal Azure
 
 [Azure Portal](https://portal.azure.com/#home) is our primary cloud computing platform where we host and manage our applications and services. You can access the portal using the following credentials:
