@@ -1,35 +1,55 @@
 const Ticket = require("../models/Ticket");
+const Gain = require("../models/Gain");
+
 const { TICKET_NOT_FOUND, TICKET_ALREADY_USED } = require("../constants");
 
 module.exports = {
+
+  
 
   consumeTicket: async (req, res) => {
     try {
       const { code } = req.query;
       let ticket = await Ticket.findOne({ code });
       if (!ticket) {
-        return res.status(400).json({
-          message: TICKET_NOT_FOUND,
-        });
+        return res.status(400).json({ message: TICKET_NOT_FOUND });
       }
       if (ticket.isClaimed) {
-        return res.status(400).json({
-          message: TICKET_ALREADY_USED,
-        });
+        console.log('user :', 'user.user._id');
+        return res.status(400).json({ message: TICKET_ALREADY_USED });
       }
-      res.status(200).send({
-        message: `Congratulations You got ${ticket.title}`,
-        ticket,
-      });
+  
       ticket.isClaimed = true;
       ticket.isActive = false;
       await ticket.save();
+
+      // Vérifier si l'ID de l'utilisateur est présent
+      // if (!req.user || !req.user._id) {
+      //   return res.status(400).json({ message: "User ID not found" });
+      // }
+      
+      try {
+        const newGain = new Gain({
+          //user: req.user._id,  // Utiliser l'ID de l'utilisateur actuel
+          ticket: ticket._id
+        });
+        await newGain.save();
+        res.status(200).json({
+          message: `Congratulations You got ${ticket.title}`,
+          ticket,
+          gain: newGain
+        });
+      } catch (err) {
+        console.error("Error saving gain:", err);
+      }
     } catch (err) {
-      res.status(500).json({
-        message: err.toString(),
-      });
+      console.error("Error in consumeTicket:", err);
+      res.status(500).json({ message: err.toString() });
     }
   },
+
+  // ... autres méthodes ...
+
 
   getTicketCodes: async (req, res) => {
     try {
