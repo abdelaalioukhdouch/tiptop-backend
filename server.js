@@ -9,10 +9,20 @@ const authRoutes = require("./routes/api/auth/auth");
 const usersRoutes = require("./routes/api/user/user");
 const scriptRoutes = require("./routes/api/script/script");
 const ticketRoutes = require("./routes/api/ticket/ticket");
+const gainRoutes = require("./routes/api/gain/gain");
+
 
 const port = process.env.PORT || 443;
 
 const app = express();
+
+// Allow requests from your frontend origin
+const corsOptions = {
+  origin: 'http://localhost:4200', // Update with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -37,6 +47,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/script", scriptRoutes);
 app.use("/api/ticket", ticketRoutes);
+app.use("/api/gain", gainRoutes);
 app.get("/test", (req, res) => {
   res.status(200).json({
     message: "test",

@@ -10,6 +10,9 @@ module.exports = {
         if (req.query.name) {
             query['name'] = new RegExp(req.query.name, "i");
         }
+        if (req.query.role) {
+            query['role'] = new RegExp(req.query.role, "i");
+        }
         if (req.query.ids) {
             if (req.query.ids != "all") {
                 query['_id'] = { $in: req.query.ids.split(",") };

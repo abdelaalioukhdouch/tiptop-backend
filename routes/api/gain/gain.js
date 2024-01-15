@@ -1,10 +1,10 @@
-app.get("/api/gains/:userId", async (req, res) => {
-    try {
-      const gains = await Gain.find({ user: req.params.userId })
-                              .populate('ticket')
-                              .populate('user', 'name email'); // Modifiez les champs à peupler selon les besoins
-      res.json(gains);
-    } catch (err) {
-      res.status(500).json({ message: err.toString() });
-    }
-  });
+// routes/gain.js
+
+const express = require('express');
+const router = express.Router();
+const gainController = require('../../../controllers/gain'); // Import your gain controller
+
+// Define a route to get all gains
+router.get('/', gainController.getAllGains);
+
+module.exports = router;
