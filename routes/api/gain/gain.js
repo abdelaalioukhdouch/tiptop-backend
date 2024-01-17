@@ -6,5 +6,7 @@ const gainController = require('../../../controllers/gain'); // Import your gain
 
 // Define a route to get all gains
 router.get('/', gainController.getAllGains);
+// Delete a gain
+router.delete('/:id', gainController.deleteGain);
 
 module.exports = router;

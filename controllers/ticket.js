@@ -22,31 +22,31 @@ module.exports = {
       ticket.isClaimed = true;
       ticket.isActive = false;
       await ticket.save();
-
-      // Vérifier si l'ID de l'utilisateur est présent
-      // if (!req.user || !req.user._id) {
-      //   return res.status(400).json({ message: "User ID not found" });
-      // }
-      
+  
+      // Retrieve the user's name from req.user.name (replace with your actual user data structure)
+      const userName = req.user.name;
+  
       try {
         const newGain = new Gain({
-          //user: req.user._id,  // Utiliser l'ID de l'utilisateur actuel
-          ticket: ticket._id
+          ticketTitle: userName, // Store the user's name in ticketTitle
+          ticket: ticket.title, // Store the ticket's title in the ticket field
         });
         await newGain.save();
         res.status(200).json({
           message: `Congratulations You got ${ticket.title}`,
           ticket,
-          gain: newGain
+          gain: newGain,
         });
       } catch (err) {
         console.error("Error saving gain:", err);
+        res.status(500).json({ message: err.toString() });
       }
     } catch (err) {
       console.error("Error in consumeTicket:", err);
       res.status(500).json({ message: err.toString() });
     }
   },
+  
 
   // ... autres méthodes ...
 
