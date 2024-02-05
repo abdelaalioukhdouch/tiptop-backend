@@ -23,13 +23,31 @@ module.exports = {
       ticket.isActive = false;
       await ticket.save();
   
+      function generateRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      
+      const rdm = generateRandomNumber(1, 10);
+      console.log(rdm);
+      
+
       // Retrieve the user's name from req.user.name (replace with your actual user data structure)
-      const userName = req.user.name;
-  
+      const userId = req.user?._id || rdm;
+
+      //Participant
+      // const participant = await Participant.findOneAndUpdate(
+      //   { user: userId }, // Find a document with this user ID
+      //   { $set: { hasParticipated: true } }, // Set hasParticipated to true
+      //   { upsert: true, new: true } // Create a new document if one doesn't exist
+      // );
+
+      //Gain
       try {
         const newGain = new Gain({
-          ticketTitle: userName, // Store the user's name in ticketTitle
-          ticket: ticket.title, // Store the ticket's title in the ticket field
+          userId: userId, // Correctly store the user's name in userName field
+          // Assuming you want to reference the ticket document
+          ticket: ticket._id, // Reference the ticket by its ObjectId
+          ticketTitle: ticket.title, // Store the ticket's title in the ticket field
         });
         await newGain.save();
         res.status(200).json({

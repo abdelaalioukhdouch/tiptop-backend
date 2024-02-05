@@ -10,6 +10,7 @@ const usersRoutes = require("./routes/api/user/user");
 const scriptRoutes = require("./routes/api/script/script");
 const ticketRoutes = require("./routes/api/ticket/ticket");
 const gainRoutes = require("./routes/api/gain/gain");
+const selectWinnerRoutes = require("./routes/api/select-winner/select-winner");
 
 
 const port = process.env.PORT || 443;
@@ -48,6 +49,8 @@ app.use("/api/users", usersRoutes);
 app.use("/api/script", scriptRoutes);
 app.use("/api/ticket", ticketRoutes);
 app.use("/api/gain", gainRoutes);
+app.use("/api/select-winner", selectWinnerRoutes);
+
 app.get("/test", (req, res) => {
   res.status(200).json({
     message: "test",

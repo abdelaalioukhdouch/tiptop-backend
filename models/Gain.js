@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const gainSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: false
   },
   ticket: {
     type: Schema.Types.ObjectId,
     ref: 'Ticket',
-    required: true
+    required: false
   },
   claimedAt: {
     type: Date,
@@ -22,7 +22,11 @@ const gainSchema = new Schema({
   },
   ticketTitle: {
     type: String, // Assuming the ticket's title is a string
-    required: true // Set to true if the ticket's title is required
+    required: false // Set to true if the ticket's title is required
+  },
+  userId: {
+    type: Number, // Assuming the ticket's title is a string
+    required: false // Set to true if the ticket's title is required
   }
   // Other fields if necessary
 });
