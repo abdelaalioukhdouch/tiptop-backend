@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const gainSchema = new Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: false
   },
@@ -11,6 +11,10 @@ const gainSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Ticket',
     required: false
+  },
+  email: {
+    type: String,
+    required: false // Set to false if not required
   },
   claimedAt: {
     type: Date,
@@ -24,11 +28,10 @@ const gainSchema = new Schema({
     type: String, // Assuming the ticket's title is a string
     required: false // Set to true if the ticket's title is required
   },
-  userId: {
-    type: Number, // Assuming the ticket's title is a string
-    required: false // Set to true if the ticket's title is required
+  toValidate: {
+    type: Boolean,
+    default: true // or true, depending on what your default state should be
   }
-  // Other fields if necessary
 });
 
 module.exports = mongoose.model("Gain", gainSchema);

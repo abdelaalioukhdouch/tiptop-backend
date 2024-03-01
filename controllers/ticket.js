@@ -1,7 +1,10 @@
 const Ticket = require("../models/Ticket");
+const User = require("../models/User");
+
 const Gain = require("../models/Gain");
 
 const { TICKET_NOT_FOUND, TICKET_ALREADY_USED } = require("../constants");
+//const user = require("./user");
 
 module.exports = {
 
@@ -18,7 +21,11 @@ module.exports = {
         console.log('user :', 'user.user._id');
         return res.status(400).json({ message: TICKET_ALREADY_USED });
       }
-  
+      const userId = req.user._id;
+
+      const userEmail = req.user.email || "test";
+
+      // const userEmail = req.user.userEmail;
       ticket.isClaimed = true;
       ticket.isActive = false;
       await ticket.save();
@@ -27,27 +34,16 @@ module.exports = {
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
       
-      const rdm = generateRandomNumber(1, 10);
-      console.log(rdm);
-      
+      console.log('UserID:', userId);
 
-      // Retrieve the user's name from req.user.name (replace with your actual user data structure)
-      const userId = req.user?._id || rdm;
-
-      //Participant
-      // const participant = await Participant.findOneAndUpdate(
-      //   { user: userId }, // Find a document with this user ID
-      //   { $set: { hasParticipated: true } }, // Set hasParticipated to true
-      //   { upsert: true, new: true } // Create a new document if one doesn't exist
-      // );
-
-      //Gain
       try {
         const newGain = new Gain({
-          userId: userId, // Correctly store the user's name in userName field
+          userId: userId,
+          //userId: user._id, // Correctly store the user's name in userName field
           // Assuming you want to reference the ticket document
           ticket: ticket._id, // Reference the ticket by its ObjectId
           ticketTitle: ticket.title, // Store the ticket's title in the ticket field
+          email: userEmail
         });
         await newGain.save();
         res.status(200).json({
