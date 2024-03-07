@@ -16,4 +16,5 @@ const ticketSchema = new Schema(
 );
 
 ticketSchema.index({ "$**": "text" });
+
 module.exports = mongoose.model("Ticket", ticketSchema);
