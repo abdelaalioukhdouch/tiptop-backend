@@ -21,7 +21,7 @@ const corsOptions = {
   origin: ['http://localhost:4200', 'https://tiptipfront.azurewebsites.net'], // array of allowed origins
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // if your frontend needs to send cookies with the request
-  allowedHeaders: 'Content-Type,Authorization' // specify headers if needed
+  allowedHeaders: 'Access-Control-Allow-Origin,Content-Type,Authorization' // specify headers if needed
 };
 
 
