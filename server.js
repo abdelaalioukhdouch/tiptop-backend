@@ -57,15 +57,6 @@ app.get("/test", (req, res) => {
   });
 });
 
-const DIST_FOLDER = path.join(__dirname, 'dist/projectdsp/browser');
-// Serve static files
-app.use(express.static(DIST_FOLDER));
-
-// All other routes should redirect to the index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(DIST_FOLDER, 'index.html'));
-});
-
 
 connectDB();
 console.log(`Connected to PORT ${port} `);
