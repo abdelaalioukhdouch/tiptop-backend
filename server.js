@@ -57,6 +57,13 @@ app.get("/test", (req, res) => {
   });
 });
 
+// Serve static files from the Angular app
+app.use(express.static(path.join(__dirname, 'path-to-your-angular-dist-folder')));
+
+// Handle Angular routing, redirect all requests to Angular app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'path-to-your-angular-dist-folder/index.html'));
+});
 
 connectDB();
 console.log(`Connected to PORT ${port} `);
