@@ -21,9 +21,8 @@ const corsOptions = {
   origin: ['http://localhost:4200', 'https://tiptipfront.azurewebsites.net'], // array of allowed origins
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // if your frontend needs to send cookies with the request
-  allowedHeaders: 'Access-Control-Allow-Origin,Content-Type,Authorization' // specify headers if needed
+  allowedHeaders: 'Content-Type,Authorization' // specify headers if needed
 };
-
 
 app.use(cors(corsOptions));
 
@@ -57,15 +56,6 @@ app.get("/test", (req, res) => {
   res.status(200).json({
     message: "test",
   });
-});
-
-const DIST_FOLDER = path.join(__dirname, 'dist/projectdsp/browser');
-// Serve static files
-app.use(express.static(DIST_FOLDER));
-
-// All other routes should redirect to the index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(DIST_FOLDER, 'index.html'));
 });
 
 
