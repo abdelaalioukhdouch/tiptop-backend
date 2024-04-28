@@ -57,7 +57,7 @@ app.get("/test", (req, res) => {
   });
 });
 
-const DIST_FOLDER = path.join(__dirname, 'dist/projectdsp/browser');
+const DIST_FOLDER = path.join(__dirname, '/dist/projectdsp/browser');
 // Serve static files
 app.use(express.static(DIST_FOLDER));
 
