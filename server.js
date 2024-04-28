@@ -60,11 +60,11 @@ app.get("/test", (req, res) => {
 });
 
 // Serve your static assets like JavaScript, CSS, images, etc.
-app.use(express.static(path.join(__dirname, 'dist/projectdsp')));
+app.use(express.static(path.join(__dirname, 'dist/projectdsp/browser')));
 
 // Redirect all other requests to your Angular app's index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/projectdsp/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/projectdsp/browser/index.html'));
 });
 
 connectDB();
