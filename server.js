@@ -1,4 +1,6 @@
 require("dotenv").config();
+const path = require('path');
+
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -57,12 +59,12 @@ app.get("/test", (req, res) => {
   });
 });
 
-// Serve static files from the Angular app
-app.use(express.static(path.join(__dirname, 'path-to-your-angular-dist-folder')));
+// Serve your static assets like JavaScript, CSS, images, etc.
+app.use(express.static(path.join(__dirname, 'dist/projectdsp')));
 
-// Handle Angular routing, redirect all requests to Angular app
+// Redirect all other requests to your Angular app's index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'path-to-your-angular-dist-folder/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/projectdsp/index.html'));
 });
 
 connectDB();
