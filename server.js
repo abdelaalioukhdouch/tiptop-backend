@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require('path');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -14,6 +15,9 @@ const selectWinnerRoutes = require("./routes/api/select-winner/select-winner");
 
 
 const port = process.env.PORT || 443;
+
+
+
 
 const app = express();
 
@@ -44,6 +48,11 @@ app.use((req, res, next) => {
 });
 
 // app.use(cors());
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res) => {
+  res.redirect('/home'); // Redirige vers la page d'accueil
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
