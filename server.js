@@ -71,6 +71,9 @@ app.use((req, res) => {
   res.redirect('/');
 });
 
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
+
 connectDB();
 console.log(`Connected to PORT ${port} `);
 const server = app.listen(port);
