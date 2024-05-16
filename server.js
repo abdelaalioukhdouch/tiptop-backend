@@ -49,10 +49,10 @@ app.use((req, res, next) => {
 
 // app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res) => {
-  res.redirect('/home'); // Redirige vers la page d'accueil
-});
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use((req, res) => {
+//   res.redirect('/home'); // Redirige vers la page d'accueil
+// });
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
@@ -67,6 +67,9 @@ app.get("/test", (req, res) => {
   });
 });
 
+app.use((req, res) => {
+  res.redirect('/');
+});
 
 connectDB();
 console.log(`Connected to PORT ${port} `);
