@@ -17,15 +17,9 @@ const selectWinnerRoutes = require("./routes/api/select-winner/select-winner");
 const port = process.env.PORT || 443;
 
 
+
+
 const app = express();
-
-// Serve static files from the Angular app
-app.use(express.static(path.join(__dirname, 'dist/projectdsp/browser')));
-
-// Send all requests to index.html for client-side routing
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'dist/projectdsp/browser', 'index.html'));
-});
 
 const corsOptions = {
   origin: ['http://localhost:4200', 'https://tiptipfront.azurewebsites.net'], // array of allowed origins
