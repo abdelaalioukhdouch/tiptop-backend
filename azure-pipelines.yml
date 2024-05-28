@@ -32,8 +32,12 @@ stages:
 
     - script: |
         npm install
+      displayName: 'npm install'
+    
+    - script: |
+        npm test
         npm run build --if-present
-      displayName: 'npm install, build and test'
+      displayName: 'Build and Test'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
