@@ -2,7 +2,6 @@ trigger:
 - main
 
 variables:
-
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '9a3cafdc-1e49-4ce8-8c1d-69ee7372ac57'
 
@@ -27,17 +26,14 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSpec: '10.x'
+        versionSpec: '16.x'
       displayName: 'Install Node.js'
 
     - script: |
         npm install
-      displayName: 'npm install'
-    
-    - script: |
         npm test
         npm run build --if-present
-      displayName: 'Build and Test'
+      displayName: 'Install dependencies, run tests, and build'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -48,13 +44,13 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
-  condition: succeeded()
+  condition: succeeded() # This ensures the deploy stage runs only if the build stage succeeds
   jobs:
   - deployment: Deploy
     displayName: Deploy
@@ -71,6 +67,5 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
-              runtimeStack: 'NODE|16.0'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm run start'
