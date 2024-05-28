@@ -74,6 +74,12 @@ app.use((req, res) => {
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
+app.use(express.static(__dirname + '/dist/projectdsp'));
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/projectdsp/index.html'));
+});
+
 connectDB();
 console.log(`Connected to PORT ${port} `);
 const server = app.listen(port);
