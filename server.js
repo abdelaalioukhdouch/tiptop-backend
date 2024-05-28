@@ -77,3 +77,5 @@ app.use(express.static(publicPath));
 connectDB();
 console.log(`Connected to PORT ${port} `);
 const server = app.listen(port);
+
+module.exports = app;
